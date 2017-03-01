@@ -2,7 +2,7 @@ import init.mt6797.usb.rc
 import init.modem.rc
 
 on init
-    export LD_PRELOAD "libmtk_symbols.so"
+    export LD_PRELOAD "libxlog.so:libmtk_symbols.so"
 
     # mount points
     mkdir /protect_f 0771 system system
