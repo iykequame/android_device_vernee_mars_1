@@ -97,6 +97,9 @@ TW_EXTERNAL_STORAGE_MOUNT_POINT := "external_sd"
 TW_DEFAULT_EXTERNAL_STORAGE := true
 endif
 
+# Include
+TARGET_SPECIFIC_HEADER_PATH += $(DEVICE_PATH)/include
+
 TARGET_SYSTEM_PROP := $(LOCAL_PATH)/system.prop
 
 # SELinux
