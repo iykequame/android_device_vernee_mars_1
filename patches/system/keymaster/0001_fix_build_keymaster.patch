@@ -1,0 +1,108 @@
+commit d148384d6a59bae5b692e80800caa3b629f1f2e4
+Author: verevka <verevka86@gmail.com>
+Date:   Wed Mar 1 20:05:10 2017 +0300
+
+    fix_build_keymaster
+    
+    Change-Id: I7248fafc37924a52bfc172b6e112a1aa72f40d2f
+
+diff --git a/attestation_record.cpp b/attestation_record.cpp
+index 8aed9ad..451fdb2 100644
+--- a/attestation_record.cpp
++++ b/attestation_record.cpp
+@@ -328,6 +328,18 @@ static keymaster_error_t build_auth_list(const AuthorizationSet& auth_list, KM_A
+         case KM_TAG_APPLICATION_ID:
+             string_ptr = &record->application_id;
+             break;
++
++        /* Soter Tags begins */
++        case KM_TAG_SOTER_IS_FROM_SOTER:
++        case KM_TAG_SOTER_IS_AUTO_SIGNED_WITH_ATTK_WHEN_GET_PUBLIC_KEY:
++        case KM_TAG_SOTER_IS_AUTO_SIGNED_WITH_COMMON_KEY_WHEN_GET_PUBLIC_KEY:
++        case KM_TAG_SOTER_AUTO_SIGNED_COMMON_KEY_WHEN_GET_PUBLIC_KEY:
++        case KM_TAG_SOTER_AUTO_ADD_COUNTER_WHEN_GET_PUBLIC_KEY:
++        case KM_TAG_SOTER_IS_SECMSG_FID_COUNTER_SIGNED_WHEN_SIGN:
++        case KM_TAG_SOTER_USE_NEXT_ATTK:
++        case KM_TAG_SOTER_UID:
++        case KM_TAG_SOTER_AUTO_SIGNED_COMMON_KEY_WHEN_GET_PUBLIC_KEY_BLOB:
++            continue;
+         }
+ 
+         keymaster_tag_type_t type = keymaster_tag_get_type(entry.tag);
+diff --git a/include/keymaster/keymaster_tags.h b/include/keymaster/keymaster_tags.h
+index 2c7ac03..0f951e6 100644
+--- a/include/keymaster/keymaster_tags.h
++++ b/include/keymaster/keymaster_tags.h
+@@ -166,6 +166,15 @@ DECLARE_KEYMASTER_TAG(KM_UINT, TAG_OS_PATCHLEVEL);
+ DECLARE_KEYMASTER_TAG(KM_BYTES, TAG_UNIQUE_ID);
+ DECLARE_KEYMASTER_TAG(KM_BYTES, TAG_ATTESTATION_CHALLENGE);
+ DECLARE_KEYMASTER_TAG(KM_BOOL, TAG_RESET_SINCE_ID_ROTATION);
++DECLARE_KEYMASTER_TAG(KM_BOOL, TAG_SOTER_IS_FROM_SOTER);
++DECLARE_KEYMASTER_TAG(KM_BOOL, TAG_SOTER_IS_AUTO_SIGNED_WITH_ATTK_WHEN_GET_PUBLIC_KEY);
++DECLARE_KEYMASTER_TAG(KM_BOOL, TAG_SOTER_IS_AUTO_SIGNED_WITH_COMMON_KEY_WHEN_GET_PUBLIC_KEY);
++DECLARE_KEYMASTER_TAG(KM_BYTES, TAG_SOTER_AUTO_SIGNED_COMMON_KEY_WHEN_GET_PUBLIC_KEY);
++DECLARE_KEYMASTER_TAG(KM_BOOL, TAG_SOTER_AUTO_ADD_COUNTER_WHEN_GET_PUBLIC_KEY);
++DECLARE_KEYMASTER_TAG(KM_BOOL, TAG_SOTER_IS_SECMSG_FID_COUNTER_SIGNED_WHEN_SIGN);
++DECLARE_KEYMASTER_TAG(KM_BOOL, TAG_SOTER_USE_NEXT_ATTK);
++DECLARE_KEYMASTER_TAG(KM_UINT, TAG_SOTER_UID);
++DECLARE_KEYMASTER_TAG(KM_BYTES, TAG_SOTER_AUTO_SIGNED_COMMON_KEY_WHEN_GET_PUBLIC_KEY_BLOB);
+ 
+ // DECLARE_KEYMASTER_ENUM_TAG is used to declare TypedEnumTag instances for each enum keymaster tag.
+ #define DECLARE_KEYMASTER_ENUM_TAG(type, name, enumtype)                                           \
+diff --git a/keymaster_enforcement.cpp b/keymaster_enforcement.cpp
+index 21ee01f..be7f01c 100644
+--- a/keymaster_enforcement.cpp
++++ b/keymaster_enforcement.cpp
+@@ -341,6 +341,19 @@ keymaster_error_t KeymasterEnforcement::AuthorizeBegin(const keymaster_purpose_t
+ 
+         case KM_TAG_BOOTLOADER_ONLY:
+             return KM_ERROR_INVALID_KEY_BLOB;
++
++        /* Soter Tags begins */
++        case KM_TAG_SOTER_IS_FROM_SOTER:
++        case KM_TAG_SOTER_IS_AUTO_SIGNED_WITH_ATTK_WHEN_GET_PUBLIC_KEY:
++        case KM_TAG_SOTER_IS_AUTO_SIGNED_WITH_COMMON_KEY_WHEN_GET_PUBLIC_KEY:
++        case KM_TAG_SOTER_AUTO_SIGNED_COMMON_KEY_WHEN_GET_PUBLIC_KEY:
++        case KM_TAG_SOTER_AUTO_ADD_COUNTER_WHEN_GET_PUBLIC_KEY:
++        case KM_TAG_SOTER_IS_SECMSG_FID_COUNTER_SIGNED_WHEN_SIGN:
++        case KM_TAG_SOTER_USE_NEXT_ATTK:
++        case KM_TAG_SOTER_UID:
++        case KM_TAG_SOTER_AUTO_SIGNED_COMMON_KEY_WHEN_GET_PUBLIC_KEY_BLOB:
++            break;
++        /* Soter Tags ends */
+         }
+     }
+ 
+diff --git a/keymaster_tags.cpp b/keymaster_tags.cpp
+index 238bc33..11210bc 100644
+--- a/keymaster_tags.cpp
++++ b/keymaster_tags.cpp
+@@ -111,8 +111,27 @@ const char* StringifyTag(keymaster_tag_t tag) {
+         return "KM_TAG_ALLOW_WHILE_ON_BODY";
+     case KM_TAG_ATTESTATION_CHALLENGE:
+         return "KM_TAG_ATTESTATION_CHALLENGE";
+-    }
++    case KM_TAG_SOTER_IS_FROM_SOTER:
++        return "KM_TAG_SOTER_IS_FROM_SOTER";
++    case KM_TAG_SOTER_IS_AUTO_SIGNED_WITH_ATTK_WHEN_GET_PUBLIC_KEY:
++        return "KM_TAG_SOTER_IS_AUTO_SIGNED_WITH_ATTK_WHEN_GET_PUBLIC_KEY";
++    case KM_TAG_SOTER_IS_AUTO_SIGNED_WITH_COMMON_KEY_WHEN_GET_PUBLIC_KEY:
++        return "KM_TAG_SOTER_IS_AUTO_SIGNED_WITH_COMMON_KEY_WHEN_GET_PUBLIC_KEY";
++    case KM_TAG_SOTER_AUTO_SIGNED_COMMON_KEY_WHEN_GET_PUBLIC_KEY:
++        return "KM_TAG_SOTER_AUTO_SIGNED_COMMON_KEY_WHEN_GET_PUBLIC_KEY";
++    case KM_TAG_SOTER_AUTO_ADD_COUNTER_WHEN_GET_PUBLIC_KEY:
++        return "KM_TAG_SOTER_AUTO_ADD_COUNTER_WHEN_GET_PUBLIC_KEY";
++    case KM_TAG_SOTER_IS_SECMSG_FID_COUNTER_SIGNED_WHEN_SIGN:
++        return "KM_TAG_SOTER_IS_SECMSG_FID_COUNTER_SIGNED_WHEN_SIGN";
++    case KM_TAG_SOTER_USE_NEXT_ATTK:
++        return "KM_TAG_SOTER_USE_NEXT_ATTK";
++    case KM_TAG_SOTER_UID:
++        return "KM_TAG_SOTER_UID";
++    case KM_TAG_SOTER_AUTO_SIGNED_COMMON_KEY_WHEN_GET_PUBLIC_KEY_BLOB:
++        return "KM_TAG_SOTER_AUTO_SIGNED_COMMON_KEY_WHEN_GET_PUBLIC_KEY_BLOB";
+     return "<Unknown>";
++    }
++
+ }
+ #endif  // KEYMASTER_NAME_TAGS
+ 
