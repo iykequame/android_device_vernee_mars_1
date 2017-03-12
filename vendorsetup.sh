@@ -21,6 +21,6 @@
 # function: add_lunch_combo generic-eng
 
 for var in eng user userdebug; do
-  add_lunch_combo lineage_apollo_lite-$var
+  add_lunch_combo aicp_apollo_lite-$var
 done
-
+cp -f device/vernee/apollo_lite/aicp.mk vendor/aicp/products/apollo_lite.mk
