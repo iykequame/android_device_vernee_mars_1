@@ -15,14 +15,14 @@
 #
 
 # Device path
-LOCAL_PATH := device/elephone/p9000
+LOCAL_PATH := device/vernee/apollo_lite
 
 # Device board elements
 include $(LOCAL_PATH)/PlatformConfig.mk
 include $(LOCAL_PATH)/board/*.mk
 
 # Device vendor board
--include vendor/elephone/p9000/BoardConfigVendor.mk
+-include vendor/vernee/apollo_lite/BoardConfigVendor.mk
 
 #######################################################################
 
@@ -37,3 +37,5 @@ EXTENDED_FONT_FOOTPRINT := true
 
 # Vold
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/soc/11270000.usb3/musb-hdrc/gadget/lun%d/file
+
+TW_USE_MODEL_HARDWARE_ID_FOR_DEVICE_ID := true

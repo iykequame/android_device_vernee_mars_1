@@ -16,19 +16,19 @@
 #
 
 # Inherit device configuration
-$(call inherit-product, $(LOCAL_PATH)/device_p9000.mk)
+$(call inherit-product, $(LOCAL_PATH)/device.mk)
 
 # Device display
 TARGET_SCREEN_HEIGHT := 1920
 TARGET_SCREEN_WIDTH := 1080
 
 # Device identifier
-PRODUCT_BRAND := Elephone
-PRODUCT_DEVICE := p9000
-PRODUCT_MANUFACTURER := Elephone
-PRODUCT_MODEL := P9000
-PRODUCT_NAME := lineage_p9000
-PRODUCT_RELEASE_NAME := p9000
+PRODUCT_BRAND := Vernee
+PRODUCT_DEVICE := apollo_lite
+PRODUCT_MANUFACTURER := Vernee
+PRODUCT_MODEL := Apollo_Lite
+PRODUCT_NAME := lineage_apollo_lite
+PRODUCT_RELEASE_NAME := apollo_lite
 
 # Time Zone data for Recovery
 PRODUCT_COPY_FILES += \
