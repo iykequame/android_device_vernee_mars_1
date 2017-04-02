@@ -27,4 +27,3 @@ TARGET_SCREEN_HEIGHT      := 1920
 TARGET_SCREEN_WIDTH       := 1080
 TARGET_BOOTANIMATION_NAME := 1080
 -include vendor/aicp/configs/bootanimation.mk
-

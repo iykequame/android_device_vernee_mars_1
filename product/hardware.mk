@@ -8,5 +8,4 @@ PRODUCT_PACKAGES += \
     libstlport \
     libgralloc_extra \
     libmtk_symbols \
-    libxlog \
-    libccci_util
+    libxlog

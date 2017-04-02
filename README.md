@@ -31,7 +31,7 @@ Front Camera | 5MP (OV)
  * Auto brightness
  * Bluetooth
  * Camera rear/front (Photographs)
- * Camera rear/front (Video - [Use Camu from Play Store](https://play.google.com/store/apps/details?id=com.sumoing.camu))
+ * Camera rear/front
  * Doze
  * Enforcing SELinux
  * Flashlight (statusbar and camera)
@@ -50,14 +50,13 @@ Front Camera | 5MP (OV)
  * Video playback
  * Wi-Fi
  * Wi-Fi tethering
+ * HALL Cover
+ * Traffic counter
+ * Operator name
 
 ## Broken/Bugs
- * Operator name
  * Enforcing SELinux
  * HDR
- * Traffic counter
-
-
 
 ### Thanks to:
  * LineageOS team
@@ -67,3 +66,4 @@ Front Camera | 5MP (OV)
  * Daniel HK
  * Team M.A.D
  * JonnyXDA
+ * Moyster

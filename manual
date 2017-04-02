@@ -13,11 +13,7 @@ Create dirs vernee/apollo_lite and place them in working_dir/device and in worki
 After copy files from downloaded device in working_dir/device , and from downloaded vendor in working_dir/vendor
 Open terminal and write:
 
-cd working_dir
-
 export JACK_SERVER_VM_ARGUMENTS="-Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx12g"
-
-./device/vernee/apollo_lite/patches/install.sh
 
 . build/envsetup.sh && breakfast apollo_lite
 
