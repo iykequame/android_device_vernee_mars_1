@@ -24,11 +24,11 @@ TARGET_SCREEN_WIDTH := 1080
 
 # Device identifier
 PRODUCT_BRAND := Vernee
-PRODUCT_DEVICE := apollo_lite
+PRODUCT_DEVICE := mars
 PRODUCT_MANUFACTURER := Vernee
-PRODUCT_MODEL := Apollo_Lite
-PRODUCT_NAME := lineage_apollo_lite
-PRODUCT_RELEASE_NAME := apollo_lite
+PRODUCT_MODEL := Mars
+PRODUCT_NAME := lineage_mars
+PRODUCT_RELEASE_NAME := mars
 
 # Time Zone data for Recovery
 PRODUCT_COPY_FILES += \

@@ -1,4 +1,4 @@
-Vernee Apollo Lite
+Vernee Mars
 ==============
 
 This branch is for building TWRP.

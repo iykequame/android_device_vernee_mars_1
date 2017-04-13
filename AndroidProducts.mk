@@ -1,2 +1,2 @@
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/omni_apollo_lite.mk
+    $(LOCAL_DIR)/omni_mars.mk

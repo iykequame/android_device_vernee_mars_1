@@ -15,7 +15,7 @@
 #
 
 # Device path
-LOCAL_PATH := device/vernee/apollo_lite
+LOCAL_PATH := device/vernee/mars
 
 # Device board elements
 include $(LOCAL_PATH)/PlatformConfig.mk
